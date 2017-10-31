@@ -49,6 +49,7 @@ class ExternalAuthTokenFilter implements Filter {
     Authentication auth = extractor.extract(httpServletRequest)
     if (auth?.principal) {
       userInfoRestTemplateFactory.getUserInfoRestTemplate().OAuth2ClientContext.accessToken = new DefaultOAuth2AccessToken(auth.principal.toString())
+      userInfoRestTemplateFactory.getUserInfoRestTemplate().OAuth2ClientContext.accessToken.setTokenType("Bearer")
     }
     chain.doFilter(request, response)
   }
